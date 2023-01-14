@@ -9,9 +9,9 @@ from human_resource import __version__ as version
 setup(
 	name="human_resource",
 	version=version,
-	description="HR",
-	author="hr",
-	author_email="hr@ge.com",
+	description="HR App",
+	author="zaqfas",
+	author_email="das@asd.com",
 	packages=find_packages(),
 	zip_safe=False,
 	include_package_data=True,
