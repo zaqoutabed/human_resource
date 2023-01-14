@@ -14,17 +14,20 @@
   {
    "fieldname": "schooluniversity",
    "fieldtype": "Data",
+   "in_list_view": 1,
    "label": "School/University"
   },
   {
    "fieldname": "qualification",
    "fieldtype": "Data",
+   "in_list_view": 1,
    "label": "Qualification"
   },
   {
    "default": "Graduate",
    "fieldname": "level",
    "fieldtype": "Select",
+   "in_list_view": 1,
    "label": "Level",
    "options": "Graduate\nUnder Graduate"
   }
@@ -32,7 +35,7 @@
  "index_web_pages_for_search": 1,
  "istable": 1,
  "links": [],
- "modified": "2023-01-14 14:43:21.393787",
+ "modified": "2023-01-14 14:48:55.542680",
  "modified_by": "Administrator",
  "module": "Human Resource",
  "name": "Employee Education",

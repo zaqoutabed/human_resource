@@ -15,7 +15,6 @@
   "date_of_birth",
   "column_break_7",
   "employee_image",
-  "image",
   "employee_number",
   "date_of_joining",
   "department",
@@ -73,7 +72,7 @@
   },
   {
    "fieldname": "date_of_joining",
-   "fieldtype": "Data",
+   "fieldtype": "Date",
    "label": "Date of Joining",
    "reqd": 1
   },
@@ -95,12 +94,6 @@
    "options": "Employee Education"
   },
   {
-   "fieldname": "image",
-   "fieldtype": "Image",
-   "label": "Image",
-   "options": "employee_image"
-  },
-  {
    "fieldname": "column_break_7",
    "fieldtype": "Column Break"
   },
@@ -112,7 +105,7 @@
  "image_field": "employee_image",
  "index_web_pages_for_search": 1,
  "links": [],
- "modified": "2023-01-14 14:45:33.164281",
+ "modified": "2023-01-14 14:48:35.964608",
  "modified_by": "Administrator",
  "module": "Human Resource",
  "name": "Employee",
