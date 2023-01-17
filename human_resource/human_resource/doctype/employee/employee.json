@@ -13,6 +13,7 @@
   "full_name",
   "mobile",
   "date_of_birth",
+  "employee_age",
   "column_break_7",
   "employee_image",
   "employee_number",
@@ -26,7 +27,6 @@
   {
    "fieldname": "first_name",
    "fieldtype": "Data",
-   "in_list_view": 1,
    "label": "First Name",
    "reqd": 1
   },
@@ -43,7 +43,8 @@
   {
    "fieldname": "full_name",
    "fieldtype": "Data",
-   "label": "Full Name"
+   "label": "Full Name",
+   "read_only": 1
   },
   {
    "fieldname": "employee_image",
@@ -54,6 +55,7 @@
    "default": "Active",
    "fieldname": "status",
    "fieldtype": "Select",
+   "in_list_view": 1,
    "label": "Status",
    "options": "Active\nInactive\nSuspended\nLeft"
   },
@@ -67,19 +69,22 @@
   {
    "fieldname": "date_of_birth",
    "fieldtype": "Date",
+   "in_list_view": 1,
    "label": "Date of Birth",
    "reqd": 1
   },
   {
    "fieldname": "date_of_joining",
    "fieldtype": "Date",
+   "in_list_view": 1,
    "label": "Date of Joining",
    "reqd": 1
   },
   {
    "fieldname": "mobile",
    "fieldtype": "Data",
-   "label": "Mobile"
+   "label": "Mobile",
+   "reqd": 1
   },
   {
    "fieldname": "department",
@@ -91,7 +96,8 @@
    "fieldname": "employee_education",
    "fieldtype": "Table",
    "label": "Employee Education",
-   "options": "Employee Education"
+   "options": "Employee Education",
+   "reqd": 1
   },
   {
    "fieldname": "column_break_7",
@@ -100,12 +106,21 @@
   {
    "fieldname": "section_break_14",
    "fieldtype": "Section Break"
+  },
+  {
+   "default": "0 Year(s), 0 Month(s), 0 Day(s)",
+   "depends_on": "date_of_birth",
+   "fieldname": "employee_age",
+   "fieldtype": "Data",
+   "label": "Employee Age",
+   "precision": "1",
+   "read_only": 1
   }
  ],
  "image_field": "employee_image",
  "index_web_pages_for_search": 1,
  "links": [],
- "modified": "2023-01-14 14:48:35.964608",
+ "modified": "2023-01-17 16:44:03.464897",
  "modified_by": "Administrator",
  "module": "Human Resource",
  "name": "Employee",
@@ -126,5 +141,5 @@
  ],
  "sort_field": "modified",
  "sort_order": "DESC",
- "title_field": "first_name"
+ "title_field": "full_name"
 }
