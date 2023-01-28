@@ -40,8 +40,6 @@ class LeaveApplication(Document):
 	
 	def validate_applicable_date(self, leave_type):
 		if leave_type.applicable_after == 0: return
-		print(date_diff(self.from_date, nowdate()))
-		print(flt(leave_type.applicable_after))
 		if date_diff(self.from_date, nowdate()) < flt(leave_type.applicable_after):
 			frappe.throw("Application for Leave should be before {} Day(s)".format(leave_type.applicable_after))
 		
