@@ -20,6 +20,7 @@
   "date_of_joining",
   "department",
   "status",
+  "user",
   "section_break_14",
   "employee_education"
  ],
@@ -115,12 +116,20 @@
    "label": "Employee Age",
    "precision": "1",
    "read_only": 1
+  },
+  {
+   "fieldname": "user",
+   "fieldtype": "Link",
+   "label": "User",
+   "no_copy": 1,
+   "options": "User",
+   "unique": 1
   }
  ],
  "image_field": "employee_image",
  "index_web_pages_for_search": 1,
  "links": [],
- "modified": "2023-01-17 16:44:03.464897",
+ "modified": "2023-02-03 21:24:01.533909",
  "modified_by": "Administrator",
  "module": "Human Resource",
  "name": "Employee",
