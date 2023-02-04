@@ -64,7 +64,7 @@ class Attendance(Document):
         # Add Grace period
         check_in, check_out = self.check_in, self.check_out
         if time_diff_in_seconds(check_out, settings.start_time) <= 0 or time_diff_in_seconds(check_in, settings.end_time) > 0:
-            working_hours = 0
+            working_hours = time_diff_in_hours(check_out, check_in)
             late_hours = req_hours
         else:
             # Check if check in is before start time
