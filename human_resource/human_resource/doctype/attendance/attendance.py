@@ -55,53 +55,42 @@ class Attendance(Document):
         status = "Present"
         req_hours = late_hours = 0
         settings = frappe.get_single("Attendance Settings")
+        if settings.start_time and settings.end_time:
+            req_hours = time_diff_in_hours(settings.end_time, settings.start_time)
+
         working_hours_threshold_for_absent = flt(
             settings.working_hours_threshold_for_absent
         )
         # Add Grace period
         check_in, check_out = self.check_in, self.check_out
-        if (
-            cint(settings.late_entry_grace_period) == 0
-            and cint(settings.early_exit_grace_period) == 0
-        ):
-            check_in = self.check_in
-            check_out = self.check_out
-        elif (
-            cint(settings.late_entry_grace_period) > 0
-            and cint(settings.early_exit_grace_period) == 0
-        ):
-            check_in = get_time_str(
-                to_timedelta(self.check_in)
-                + timedelta(minutes=cint(settings.late_entry_grace_period))
-            )
-        elif (
-            cint(settings.late_entry_grace_period) == 0
-            and cint(settings.early_exit_grace_period) > 0
-        ):
-            check_in = get_time_str(
-                to_timedelta(self.check_in)
-                + timedelta(minutes=cint(settings.early_exit_grace_period))
-            )
-            check_out = get_time_str(
-                to_timedelta(self.check_out)
-                - timedelta(minutes=cint(settings.early_exit_grace_period))
-            )
+        if time_diff_in_seconds(check_out, settings.start_time) < 0 or time_diff_in_seconds(check_in, settings.end_time) > 0:
+            working_hours = 0
+            late_hours = req_hours
         else:
-            check_in = get_time_str(
-                to_timedelta(self.check_in)
-                - timedelta(minutes=cint(settings.late_entry_grace_period))
-            )
-            check_out = get_time_str(
-                to_timedelta(self.check_out)
-                + timedelta(minutes=cint(settings.early_exit_grace_period))
-            )
+            # Check if check in is before start time
+            if time_diff_in_seconds(check_in, settings.start_time) < 0:
+                check_in = settings.start_time
+            else:
+                start_time_with_grace = get_time_str(
+                    to_timedelta(settings.start_time)
+                    + timedelta(minutes=cint(settings.late_entry_grace_period))
+                )
+                if time_diff_in_seconds(check_in, start_time_with_grace) < 0:
+                    check_in = settings.start_time
 
-        working_hours = time_diff_in_hours(check_out, check_in)
-        if settings.start_time and settings.end_time:
-            req_hours = time_diff_in_hours(settings.end_time, settings.start_time)
-
-        if req_hours > 0 and req_hours > working_hours:
-            late_hours = req_hours - working_hours
+            if time_diff_in_seconds(check_out, settings.end_time) > 0:
+                check_out = settings.end_time
+            else:
+                end_time_with_grace = get_time_str(
+                    to_timedelta(settings.end_time)
+                    - timedelta(minutes=cint(settings.early_exit_grace_period))
+                )
+                if time_diff_in_seconds(check_out, end_time_with_grace) > 0:
+                    check_out = settings.end_time
+            working_hours = time_diff_in_hours(check_out, check_in)
+            
+            if req_hours > 0 and req_hours > working_hours:
+                late_hours = req_hours - working_hours
 
         if working_hours < working_hours_threshold_for_absent:
             status = "Absent"
