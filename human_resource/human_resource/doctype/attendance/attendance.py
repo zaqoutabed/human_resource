@@ -68,25 +68,23 @@ class Attendance(Document):
             late_hours = req_hours
         else:
             # Check if check in is before start time
-            if time_diff_in_seconds(check_in, settings.start_time) <= 0:
+            start_time_with_grace = get_time_str(
+                to_timedelta(settings.start_time)
+                + timedelta(minutes=cint(settings.late_entry_grace_period))
+            )
+            end_time_with_grace = get_time_str(
+                to_timedelta(settings.end_time)
+                - timedelta(minutes=cint(settings.early_exit_grace_period))
+            )
+            
+            if time_diff_in_seconds(check_in, start_time_with_grace) <= 0:
                 check_in = settings.start_time
-            else:
-                start_time_with_grace = get_time_str(
-                    to_timedelta(settings.start_time)
-                    + timedelta(minutes=cint(settings.late_entry_grace_period))
-                )
-                if time_diff_in_seconds(check_in, start_time_with_grace) <= 0:
-                    check_in = settings.start_time
-
-            if time_diff_in_seconds(check_out, settings.end_time) >= 0:
+            if time_diff_in_seconds(check_out, end_time_with_grace) >= 0:
                 check_out = settings.end_time
-            else:
-                end_time_with_grace = get_time_str(
-                    to_timedelta(settings.end_time)
-                    - timedelta(minutes=cint(settings.early_exit_grace_period))
-                )
-                if time_diff_in_seconds(check_out, end_time_with_grace) >= 0:
-                    check_out = settings.end_time
+            print(start_time_with_grace)
+            print(end_time_with_grace)
+            print(check_in)
+            print(check_out)
             working_hours = time_diff_in_hours(check_out, check_in)
             
             if req_hours > 0 and req_hours > working_hours:
