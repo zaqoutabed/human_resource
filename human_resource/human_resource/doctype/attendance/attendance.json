@@ -1,6 +1,7 @@
 {
  "actions": [],
  "allow_rename": 1,
+ "autoname": "EAT.YYYY.-.MM.-.DD.####",
  "creation": "2023-02-03 17:20:46.699671",
  "doctype": "DocType",
  "editable_grid": 1,
@@ -32,6 +33,7 @@
    "fetch_from": "employee.full_name",
    "fieldname": "employee_name",
    "fieldtype": "Data",
+   "in_list_view": 1,
    "label": "Employee Name",
    "read_only": 1
   },
@@ -47,6 +49,7 @@
   {
    "fieldname": "attendance_date",
    "fieldtype": "Date",
+   "in_list_view": 1,
    "label": "Attendance Date",
    "reqd": 1
   },
@@ -64,6 +67,7 @@
    "default": "0",
    "fieldname": "work_hours",
    "fieldtype": "Float",
+   "in_list_view": 1,
    "label": "Work Hours",
    "non_negative": 1,
    "precision": "1",
@@ -73,6 +77,7 @@
    "default": "0",
    "fieldname": "late_hours",
    "fieldtype": "Float",
+   "in_list_view": 1,
    "label": "Late Hours",
    "non_negative": 1,
    "precision": "1",
@@ -85,6 +90,7 @@
    "in_list_view": 1,
    "label": "Status",
    "options": "Present\nAbsent\nHalf Day",
+   "read_only": 1,
    "reqd": 1
   },
   {
@@ -104,7 +110,7 @@
  "index_web_pages_for_search": 1,
  "is_submittable": 1,
  "links": [],
- "modified": "2023-02-03 17:22:43.260179",
+ "modified": "2023-02-04 13:20:45.150726",
  "modified_by": "Administrator",
  "module": "Human Resource",
  "name": "Attendance",
@@ -124,5 +130,6 @@
   }
  ],
  "sort_field": "modified",
- "sort_order": "DESC"
+ "sort_order": "DESC",
+ "title_field": "employee_name"
 }
